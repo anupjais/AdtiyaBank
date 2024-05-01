@@ -1,6 +1,9 @@
 import java.util.Scanner;
 class Accounts
 {
+	static CenterScr scr = new CenterScr();
+	static Color clr = new Color();
+
 	static Scanner sc = new Scanner(System.in);
 	private String accountHolderName;
 	private String permanentAddress;
@@ -49,6 +52,13 @@ class Accounts
 	{
 		return balance;
 	}
+	public double getBalance(int pinN)
+	{
+		if(pin == pinN)
+			return balance;
+		else
+			return -1;
+	}
 	
 // SETTERS
 	public void setAccountHolderName(String updatedName)
@@ -83,7 +93,7 @@ class Accounts
 	}
 	public void setBalance(double updatedBalance)
 	{
-		this.balance = updatedBalance;
+		this.balance += updatedBalance;
 		// balance = updatedBalance;
 	}
 
@@ -104,46 +114,131 @@ class Accounts
 		this.pinCodeC = pinCodeC;
 		this.pin = pin;
 	}
+
+// METHODS
 	public void createAccount()
 	{
+		scr.clrScr();
 		byte addChoice=0;
 		System.out.print("Enter your name : ");
+		clr.indigo();
 		accountHolderName = sc.nextLine();
+		clr.neutral();
 		System.out.print("Permanent Address : ");
+		clr.indigo();
 		permanentAddress = sc.nextLine();
+		clr.neutral();
 		System.out.print("Pin Code : ");
+		clr.indigo();
 		pinCode = sc.nextInt();
+		clr.neutral();
 		System.out.print("Permanent and current address is same (0:No or 1:Yes): ");
+		clr.indigo();
 		addChoice = sc.nextByte();
+		clr.neutral();
 		if(addChoice==1)
 		{
 			currentAddress = currentAddress+permanentAddress;
 			pinCodeC = pinCode;
+			System.out.println("Done\n");
 		}
 		else
 		{
 			System.out.print("Enter the current address : ");
+			clr.indigo();
 			currentAddress = sc.nextLine();
+			sc.nextLine();
+			clr.neutral();
 			System.out.print("Pin Code : ");
+			clr.indigo();
 			pinCodeC = sc.nextInt();
+			clr.neutral();
 		}
 		System.out.print("Pan number : ");
+		clr.indigo();
 		panNumber = sc.next();
+		clr.neutral();
 		System.out.print("Adhar number : ");
+		clr.indigo();
 		adharNumber = sc.nextLong();
+		clr.neutral();
 		System.out.print("Mobile Number : ");
+		clr.indigo();
 		mobleNumber = sc.nextLong();
+		clr.neutral();
 
+		clr.darkBlue();
 		System.out.print("Enter deposit amount : ");
+		clr.yellow();
 		balance = sc.nextDouble();
+		clr.neutral();
 		// pinCreate:
-		System.out.print("Create Pine : ");
+		createPin();
+		
+	}
+	private void createPin()
+	{
+		clr.darkBlue();
+		System.out.print("Create Pin : ");
+		clr.darkPink();
 		pin = sc.nextInt();
-		System.out.print("Create Pine : ");
+		clr.blue();
+		System.out.print("Conform Pin : ");
+		clr.darkPink();
+		clr.bold();
 		int conformPin = sc.nextInt();
-		// if(pin!=conformPin)
-		// 	continue pinCreate;
-		// else
-			System.out.println("Account creation Successfull.");
+		clr.neutral();
+		if(pin!=conformPin)
+		{
+			this.pin=0;
+			scr.clrScr();
+			incorrectPin();
+			createPin();
+		}
+		else
+		{
+			scr.clrScr();
+			clr.darkGreen();
+			System.out.println("Account Creation Successfull.\n");
+			clr.neutral();
+		}
+	}
+	
+	public void changePin()
+	{
+		scr.clrScr();
+		System.out.print("Enter pin : ");
+		clr.yellow();
+		int pin = sc.nextInt();
+		clr.neutral();
+		// int pin = requestPin();
+		if(pin == this.pin)
+		{
+			createPin();
+			scr.clrScr();
+			clr.darkGreen();
+			clr.bold();
+			System.out.println("Pin Has Been Changed\n");
+			clr.neutral();
+		}
+		else
+		{
+			incorrectPin();
+		}
+	}
+	static void incorrectPin()
+	{
+		scr.clrScr();
+		clr.red();
+		clr.bold();
+		System.out.println("Incorrect Pin.\n");
+		clr.neutral();
+	}
+	public boolean validatePin(int pin)
+	{
+		if(pin == this.pin)
+			return true;
+		else
+			return false;
 	}
 }
