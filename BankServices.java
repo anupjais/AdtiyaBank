@@ -84,7 +84,8 @@ class BankServices
 	}
 	public static void userOption()
 	{
-		System.out.println("1. Check Amount\n2. Deposit Amount\n3. Withdraw Amount\n4. Change Pin\n5. Log-out\n0. EXIT\n");
+		String [] bankMenu = {"Check Amount", "Deposit Amount", "Withdraw Amount", "Change Pin", "Log-out", "EXIT"}
+		// System.out.println("1. Check Amount\n2. Deposit Amount\n3. Withdraw Amount\n4. Change Pin\n5. Log-out\n0. EXIT\n");
 		// System.out.print("Entet your option : ");
 		enterRequest();
 		int option = sc.nextInt();
@@ -262,5 +263,13 @@ class BankServices
 		System.out.println(acc.getBalance());
 		System.out.println();
 		clr.neutral();
+	}
+	static void menuShows(String [] menus)
+	{
+		for(int i=0; i<menus.length; i++)
+		{
+			scr.CenterScr();
+			System.out.println((i+1)+". "+);
+		}
 	}
 }
